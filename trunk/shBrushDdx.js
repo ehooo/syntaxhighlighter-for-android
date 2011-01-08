@@ -2,7 +2,7 @@
  * Licence: LGPL
  * Code by: ehooo
  */
-dp.sh.Brushes.Smali = function()
+dp.sh.Brushes.Ddx = function()
 {
 	var keywords = 'true false null nop public static final protected private build runtime system throw'+
 	' constructor interface enum strictfp synthetic annotation volatile transient'+
@@ -69,5 +69,5 @@ function GetDirectives(str)
 	return '\\b' + tmp.replace(/ /g, '\\b|\\b')+'\\b';
 }
 
-dp.sh.Brushes.Smali.prototype	= new dp.sh.Highlighter();
-dp.sh.Brushes.Smali.Aliases	= ['ddx'];
+dp.sh.Brushes.Ddx.prototype	= new dp.sh.Highlighter();
+dp.sh.Brushes.Ddx.Aliases	= ['ddx'];
