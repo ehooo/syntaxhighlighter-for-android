@@ -49,7 +49,7 @@ dp.sh.Brushes.Ddx = function()
 		{ regex: dp.sh.RegexLib.DoubleQuotedString,								css: 'string' },		// strings
 		{ regex: dp.sh.RegexLib.SingleQuotedString,								css: 'string' },		// strings
 		{ regex: new RegExp('\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b', 'gi'),	css: 'number' },		// numbers
-		{ regex: new RegExp('L([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9\\$]*))+;', 'g'),
+		{ regex: new RegExp('L([a-zA-Z_]+[a-z_A-Z0-9]*)(/([a-z_A-Z]+[a-z_A-Z0-9\\$]*))+;', 'g'),
 																				css: 'clase' },			// class
 		{ regex: new RegExp('\\b(v|p)[\\d]+(\\.[\\d]+)?\\b', 'gi'),				css: 'vars' },			// valiable
 		{ regex: new RegExp(this.GetKeywords(keywords), 'gm'),					css: 'keyword' },		// keyword
