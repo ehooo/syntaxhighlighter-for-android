@@ -31,18 +31,17 @@ dp.sh.Brushes.Ddx = function()
 
 	this.regexList = [
 		{ regex: dp.sh.RegexLib.SingleLinePerlComments,							css: 'comment' },		// one line comments smali
-		{ regex: new RegExp('(^;|\\ ;).*$', 'gm'),									css: 'comment' },		// one line comments ddx
+		{ regex: new RegExp('(^;|\\ ;).*$', 'gm'),								css: 'comment' },		// one line comments ddx
 		{ regex: dp.sh.RegexLib.DoubleQuotedString,								css: 'string' },		// strings
 		{ regex: dp.sh.RegexLib.SingleQuotedString,								css: 'string' },		// strings
 		{ regex: new RegExp('\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b', 'gi'),	css: 'number' },		// numbers
 		{ regex: new RegExp('L([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9\\$]*))+;', 'g'),css: 'clase' },	// class
-		//{ regex: new RegExp('L([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9\\$]*))+;', 'g'),css: 'clase' },	// class
 		{ regex: new RegExp('\\b(v|p)[\\d]+(\\.[\\d]+)?\\b', 'gi'),				css: 'vars' },			// valiable
 		{ regex: new RegExp(this.GetKeywords(keywords), 'gm'),					css: 'keyword' },		// keyword
 		{ regex: new RegExp(GetPointKeywords(point_keywords), 'gm'),			css: 'keyword' },		// start with '.' keyword
 		{ regex: new RegExp(GetPointEndKeywords(point_end_keywords), 'gm'),		css: 'keyword' },		// start with '.end *' keyword
 		{ regex: new RegExp(GetDirectives(directives), 'gm'),					css: 'directives' },	// smali directives
-		{ regex: new RegExp('(\\b|,)(?!(const|move))([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9\\$]*))+\\b', 'g'),css: 'clase' },	// class
+		{ regex: new RegExp('(\\b|,)(?!(const|move|(B|C|D|F|I|J|S|V|Z)+))([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9]*))+([\\$a-zA-Z0-9]*)?\\b', 'g'),css: 'clase' },	// class
 		{ regex: new RegExp('&lt;(init|clinit)+&gt;', 'gi'),					css: 'func' }			// functions
 		];
 
