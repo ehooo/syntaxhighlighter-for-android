@@ -4,6 +4,20 @@
  */
 dp.sh.Brushes.Ddx = function()
 {
+
+	this.GetPointEndKeywords = function(str){
+		return '\\.end\\ ' + str.replace(/ /g, '|\\.end\\ ');
+	};
+
+	this.GetPointKeywords = function(str){
+		return '\\.' + str.replace(/ /g, '|\\.');
+	};
+
+	this.GetDirectives = function(str){
+		var tmp = str.replace('-', '\\-');
+		return '\\b' + tmp.replace(/ /g, '\\b|\\b')+'\\b';
+	};
+
 	var keywords = 'true false null nop public static final protected private build runtime system throw'+
 	' constructor interface enum strictfp synthetic annotation volatile transient'+
 	' class inner outer registers data\\-array end is from to case';
@@ -35,14 +49,16 @@ dp.sh.Brushes.Ddx = function()
 		{ regex: dp.sh.RegexLib.DoubleQuotedString,								css: 'string' },		// strings
 		{ regex: dp.sh.RegexLib.SingleQuotedString,								css: 'string' },		// strings
 		{ regex: new RegExp('\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b', 'gi'),	css: 'number' },		// numbers
-		{ regex: new RegExp('L([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9\\$]*))+;', 'g'),css: 'clase' },	// class
+		{ regex: new RegExp('L([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9\\$]*))+;', 'g'),
+																				css: 'clase' },			// class
 		{ regex: new RegExp('\\b(v|p)[\\d]+(\\.[\\d]+)?\\b', 'gi'),				css: 'vars' },			// valiable
 		{ regex: new RegExp(this.GetKeywords(keywords), 'gm'),					css: 'keyword' },		// keyword
-		{ regex: new RegExp(GetPointKeywords(point_keywords), 'gm'),			css: 'keyword' },		// start with '.' keyword
-		{ regex: new RegExp(GetPointEndKeywords(point_end_keywords), 'gm'),		css: 'keyword' },		// start with '.end *' keyword
-		{ regex: new RegExp(GetDirectives(directives), 'gm'),					css: 'directives' },	// smali directives
-		{ regex: new RegExp('(\\b|,)(?!(const|move|(B|C|D|F|I|J|S|V|Z)+))([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9]*))+([\\$a-zA-Z0-9]*)?\\b', 'g'),css: 'clase' },	// class
-		{ regex: new RegExp('&lt;(init|clinit)+&gt;', 'gi'),					css: 'func' }			// functions
+		{ regex: new RegExp(this.GetPointKeywords(point_keywords), 'gm'),		css: 'keyword' },		// start with '.' keyword
+		{ regex: new RegExp(this.GetPointEndKeywords(point_end_keywords), 'gm'),css: 'keyword' },		// start with '.end *' keyword
+		{ regex: new RegExp(this.GetDirectives(directives), 'gm'),				css: 'directives' },	// Android directives
+		{ regex: new RegExp('(\\b|,)(?!(const|move|(B|C|D|F|I|J|S|V|Z)+))([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9]*))+([\\$a-zA-Z0-9]*)?\\b', 'g'),
+																				css: 'clase' },			// class
+		{ regex: new RegExp('&lt;(init|clinit)&gt;', 'gi'),						css: 'func' }			// functions
 		];
 
 	this.CssClass = 'dp-ddx';
@@ -52,21 +68,8 @@ dp.sh.Brushes.Ddx = function()
 					'.dp-ddx .clase { color: #04B404; }' +
 					'.dp-ddx .directives { color: #0BBBB0; }' +
 					'.dp-ddx .func { color: red; }';
-}
 
-function GetPointEndKeywords(str) 
-{
-	return '\\.end\\ ' + str.replace(/ /g, '|\\.end\\ ');
-}
-function GetPointKeywords(str) 
-{
-	return '\\.' + str.replace(/ /g, '|\\.');
-}
-function GetDirectives(str) 
-{
-	var tmp = str.replace('-', '\\-');
-	return '\\b' + tmp.replace(/ /g, '\\b|\\b')+'\\b';
-}
+};
 
 dp.sh.Brushes.Ddx.prototype	= new dp.sh.Highlighter();
 dp.sh.Brushes.Ddx.Aliases	= ['ddx'];

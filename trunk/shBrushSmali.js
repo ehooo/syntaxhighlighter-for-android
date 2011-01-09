@@ -4,6 +4,19 @@
  */
 dp.sh.Brushes.Smali = function()
 {
+	this.GetPointEndKeywords = function(str){
+		return '\\.end\\ ' + str.replace(/ /g, '|\\.end\\ ');
+	};
+
+	this.GetPointKeywords = function(str){
+		return '\\.' + str.replace(/ /g, '|\\.');
+	};
+
+	this.GetDirectives = function(str){
+		var tmp = str.replace('-', '\\-');
+		return '\\b' + tmp.replace(/ /g, '\\b|\\b')+'\\b';
+	};
+
 	var keywords = 'true false null nop public static final protected private build runtime system throw'+
 	' constructor interface enum strictfp synthetic annotation volatile transient';
 	var point_end_keywords = 'field subannotation annotation method parameter local packed\\-switch array\\-data sparse\\-switch';
@@ -27,20 +40,20 @@ dp.sh.Brushes.Smali = function()
 	' invoke-virtual invoke-super invoke-direct invoke-static invoke-interface invoke-virtual-quick invoke-super-quick invoke-direct-empty execute-inline'+
 	' check-cast new-instance instance-of new-array array-length filled-new-array fill-array-data packed-switch sparse-switch'+
 	' aput iput sput aget iget sget move const return goto';
-	var functions = '&lt;(init|clinit)+&gt;';
 
 	this.regexList = [
 		{ regex: dp.sh.RegexLib.SingleLinePerlComments,							css: 'comment' },		// one line comments smali
 		{ regex: dp.sh.RegexLib.DoubleQuotedString,								css: 'string' },		// strings
 		{ regex: dp.sh.RegexLib.SingleQuotedString,								css: 'string' },		// strings
 		{ regex: new RegExp('\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b', 'gi'),	css: 'number' },		// numbers
-		{ regex: new RegExp('L([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9\\$]*))+;', 'g'),css: 'clase' },	// class
+		{ regex: new RegExp('L([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9\\$]*))+;', 'g'),
+																				css: 'clase' },			// class
 		{ regex: new RegExp('\\b(v|p)[\\d]+(\\.[\\d]+)?\\b', 'gi'),				css: 'vars' },			// valiable
-		{ regex: new RegExp(GetPointKeywords(point_keywords), 'gm'),			css: 'keyword' },		// start with '.' keyword
-		{ regex: new RegExp(GetPointEndKeywords(point_end_keywords), 'gm'),		css: 'keyword' },		// start with '.end *' keyword
-		{ regex: new RegExp(GetDirectives(directives), 'gm'),					css: 'directives' },	// smali directives
+		{ regex: new RegExp(this.GetPointKeywords(point_keywords), 'gm'),		css: 'keyword' },		// start with '.' keyword
+		{ regex: new RegExp(this.GetPointEndKeywords(point_end_keywords), 'gm'),css: 'keyword' },		// start with '.end *' keyword
+		{ regex: new RegExp(this.GetDirectives(directives), 'gm'),				css: 'directives' },	// smali directives
 		{ regex: new RegExp(this.GetKeywords(keywords), 'gm'),					css: 'keyword' },		// keyword
-		{ regex: new RegExp(functions, 'gi'),					css: 'func' }			// functions
+		{ regex: new RegExp('&lt;(init|clinit)&gt;', 'gi'),						css: 'func' }			// functions
 		];
 
 	this.CssClass = 'dp-smali';
@@ -50,21 +63,7 @@ dp.sh.Brushes.Smali = function()
 					'.dp-smali .clase { color: #04B404; }' +
 					'.dp-smali .directives { color: #0BBBB0; }' +
 					'.dp-smali .func { color: red; }';
-}
 
-function GetPointEndKeywords(str) 
-{
-	return '\\.end\\ ' + str.replace(/ /g, '|\\.end\\ ');
-}
-function GetPointKeywords(str) 
-{
-	return '\\.' + str.replace(/ /g, '|\\.');
-}
-function GetDirectives(str) 
-{
-	var tmp = str.replace('-', '\\-');
-	return '\\b' + tmp.replace(/ /g, '\\b|\\b')+'\\b';
-}
-
+};
 dp.sh.Brushes.Smali.prototype	= new dp.sh.Highlighter();
 dp.sh.Brushes.Smali.Aliases	= ['smali'];
