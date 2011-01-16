@@ -56,7 +56,7 @@ dp.sh.Brushes.Ddx = function()
 		{ regex: new RegExp(this.GetPointKeywords(point_keywords), 'gm'),		css: 'keyword' },		// start with '.' keyword
 		{ regex: new RegExp(this.GetPointEndKeywords(point_end_keywords), 'gm'),css: 'keyword' },		// start with '.end *' keyword
 		{ regex: new RegExp(this.GetDirectives(directives), 'gm'),				css: 'directives' },	// Android directives
-		{ regex: new RegExp('(\\b|,)(?!(const|move|(B|C|D|F|I|J|S|V|Z)+))([a-zA-Z]+[a-zA-Z0-9]*)(/([a-zA-Z]+[a-zA-Z0-9]*))+([\\$a-zA-Z0-9]*)?\\b', 'g'),
+		{ regex: new RegExp('(\\b|,)(?!(const|move|(B|C|D|F|I|J|S|V|Z)+))([a-z_A-Z]+[a-z_A-Z0-9]*)(/([a-z_A-Z]+[a-z_A-Z0-9]*))+([\\$a-z_A-Z0-9]*)?\\b', 'g'),
 																				css: 'clase' },			// class
 		{ regex: new RegExp('&lt;(init|clinit)&gt;', 'gi'),						css: 'func' }			// functions
 		];
